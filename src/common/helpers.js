@@ -19,8 +19,8 @@ const success = (res, data = null) => {
     res.end(JSON.stringify({ status: 'success', data }, null, 3));
 };
 
-const static = (res, data, statusCode = 200) => {
-    res.setHeader('Content-Type', 'text/html; charset=UTF-8');
+const static = (res, data, statusCode = 200, contentType = 'text/html; charset=UTF-8') => {
+    res.setHeader('Content-Type', contentType);
 
     res.statusCode = statusCode;
     res.end(data);

@@ -18,6 +18,25 @@ if (!Element.prototype.off) {
     };
 }
 
+function live (event, selector, callback, context) {
+    on(context || document, event, function (e) {
+        var found, el = e.target || e.srcElement;
+        while (el && el.matches && el !== context && !(found = el.matches(selector))) {
+            el = el.parentElement;
+        }
+
+        if (found) { callback.call(el, e); }
+    });
+}
+
+if (!Element.prototype.live) {
+    Document.prototype.live = 
+    Element.prototype.live = function (event, selector, callback) {
+        var context = this;
+        return live(event, selector, callback, context);
+    };
+}
+
 if (!Element.prototype.parse) {
     Element.prototype.parse = function () {
         if (!(this instanceof Element) && this.tagName != 'FORM') {
@@ -79,6 +98,17 @@ if (!Element.prototype.parse) {
         }
 
         return params;
+    };
+}
+
+if (!String.prototype.parse) {
+    String.prototype.parse = function () {
+        var hashes = this.slice(this.indexOf("?") + 1).split("&");
+        return hashes.reduce(function (params, hash) {
+            var arr = hash.split("="), item = {};
+            item[arr[0]] = decodeURIComponent(arr[1]);
+            return Object.assign(params, item);
+        }, {});
     };
 }
 

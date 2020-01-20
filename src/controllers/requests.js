@@ -68,7 +68,7 @@ class Requests {
     async styles (req, res, name) {
         try {
             let data = await read(`./src/app/css/${name}.css`);
-            return helpers.static(res, data);
+            return helpers.static(res, data, 200, 'text/css');
         }
 
         catch (e) {
@@ -90,7 +90,7 @@ class Requests {
     async scripts (req, res, name) {
         try {
             let data = await read(`./src/app/js/${name}.js`);
-            return helpers.static(res, data);
+            return helpers.static(res, data, 200, 'application/x-javascript');
         }
 
         catch (e) {
@@ -134,8 +134,6 @@ class Requests {
                         resolve(!isJSON(body) 
                             ? body
                             : JSON.parse(body));
-
-                        console.log((Response));
                     }
                     
                     else if (Response.statusCode == 202) {

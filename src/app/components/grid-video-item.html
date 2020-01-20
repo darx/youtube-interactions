@@ -1,10 +1,17 @@
 <div class="grid-video-item">
-	
-	<img src="{{Thumbnail}}" title="{{Title}}">
+	<a 
+	href="https://www.youtube.com/watch?v={{VideoID}}" 
+	target="_blank"
+	aria-hidden="true" 
+	tabindex="-1"
+	title="{{Title}}">
+		<div class="video-item--thumbnail" style="background-image: url({{Thumbnail}});" title="{{Title}}"></div>
+	</a>
 
 	<a 
 	href="https://www.youtube.com/watch?v={{VideoID}}" 
 	target="_blank"
+	class="video-item--link" 
 	title="{{Title}}">{{Title}}</a>
 
 </div>

@@ -16,7 +16,7 @@ class Channel {
         };
 
         let options = {
-            url: 'https://www.googleapis.com/youtube/v3/channels',
+            url: process.env.YOUTUBE_API_PATH + '/channels',
             method: 'GET',
             data: params,
         };
@@ -34,7 +34,7 @@ class Channel {
 
     }
 
-    async videos (req, res, id) {
+    async videos (req, res, id, paginate) {
 
         let params = {
             key: process.env.YOUTUBE_API_KEY,
@@ -44,8 +44,12 @@ class Channel {
             maxResults: 20,
         };
 
+        if (paginate) {
+            params.pageToken = paginate;
+        }
+
         let options = {
-            url: 'https://www.googleapis.com/youtube/v3/search',
+            url: process.env.YOUTUBE_API_PATH + '/search',
             method: 'GET',
             data: params,
         };
@@ -60,6 +64,10 @@ class Channel {
         catch (e) {
             return helpers.error(res, e);
         }
+
+    }
+
+    async comments (req, res, id) {
 
     }
 
