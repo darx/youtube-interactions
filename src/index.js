@@ -7,9 +7,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 process.on('uncaughtException', (err) => {
-   
-    // handle the error safely
-    console.log('uncaughtException');
+    console.log(' !! uncaughtException !! ');
     console.error(err.stack);
     console.log(err);
 });

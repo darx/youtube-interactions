@@ -35,19 +35,6 @@ class Requests {
     
     }
 
-    // GET /employee/:id
-    async show (req, res, param) {
-        
-        try {
-            return helpers.success(res, employee);
-        }
-
-        catch (error) {
-            return helpers.error(res, error);
-        }
-
-    }
-
     async template (content) {
 
         try {
@@ -144,7 +131,7 @@ class Requests {
 
                         body = body.toString();
 
-                        resolve(!isValidJSON(body) 
+                        resolve(!isJSON(body) 
                             ? body
                             : JSON.parse(body));
 
@@ -156,7 +143,7 @@ class Requests {
                     }
                     
                     else {
-                        resolve(!isValidJSON(body) 
+                        resolve(!isJSON(body) 
                             ? body
                             : JSON.parse(body));
                     }
@@ -180,13 +167,12 @@ class Requests {
 function read (str) {
     return new Promise((resolve, reject) => {
         readFile(str, 'utf8', (err, data) => {
-            console.log(err);
             err ? reject(err) : resolve(data);
         });
     });
 }
 
-function isValidJSON (text) {
+function isJSON (text) {
     try {
         JSON.parse(text);
         return true;

@@ -1,8 +1,6 @@
 const API      = require('./api');
 const Requests = require('./controllers/requests');
 
-    console.log(API.youtube.channel.videos);
-
 const Routes   = 
 [
     {
@@ -43,8 +41,7 @@ const Routes   =
     {
         method: 'GET',
         path: '/login',
-        // handler: API.youtube.account.login.bind(API.youtube.account)
-        handler: Requests.login.bind(Requests)
+        handler: API.youtube.account.login.bind(API.youtube.account)
     },
     {
         method: 'POST',
