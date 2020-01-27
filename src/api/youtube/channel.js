@@ -11,7 +11,7 @@ class Channel {
 
         let params = {
             key: process.env.YOUTUBE_API_KEY,
-            part: 'id',
+            part: 'id,snippet,contentDetails,statistics',
             forUsername: uname,
         };
 
@@ -22,10 +22,17 @@ class Channel {
         };
 
         try {
-            let rqt   = await Requests.http(options),
-                Items = rqt.items[0];
+            let rqt   = await Requests.http(options);
+            let Items = rqt.items;
 
-            return helpers.success(res, Items);
+            return helpers.success(res, Items.map((Item) => {
+                return {
+                    id: Item.id,
+                    name: Item.snippet.title,
+                    avatar: Item.snippet.thumbnails.default.url,
+                    date: Item.snippet.publishedAt
+                }
+            }));
         }
 
         catch (e) {

@@ -98,6 +98,12 @@ class Requests {
         }
     }
 
+    parse (data) {
+
+        
+
+    }
+
     http (Options) {
 
         let OptsURL = url.parse(Options.url);

@@ -14,6 +14,11 @@ class Video {
             maxResults: 10,
         };
 
+        console.log(req);
+        console.log(res);
+        console.log(id);
+        console.log(paginate);
+
         if (paginate) {
         	params.pageToken = paginate;
         }

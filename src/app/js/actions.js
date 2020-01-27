@@ -80,7 +80,24 @@
 
             };
 
-            return { comments };
+            const lookup = (username) => {
+                let Request = {
+                    url: '/api/youtube/channel/lookup/' 
+                        + username,
+                    method: 'GET',
+                };
+
+                Request.success = (Response) => {
+                    let Data = Response.data;
+                    if ('function' === typeof cb) {
+                        return cb.apply(this, [ Data ]);
+                    }
+                };
+
+                Make.http(Request);
+            };
+
+            return { comments, lookup };
 
         }();
 
@@ -89,16 +106,33 @@
     }());
 
     (function () {
-
-        var Form = el('#youtube-channel-videos'),
-            Data = Form.parse();
+        var Form = el('#youtube-channel-videos');
 
         Form.on('submit', function (Evt) {
             Evt.preventDefault();
+            let Data = Form.parse();
             Youtube.videos.retrieve(Data.channelId, 
                 Youtube.videos.render);
         });
+    })();
 
+    (function () {
+        var Form = el('#youtube-channel-lookup');
+
+        Form.on('submit', function (Evt) {
+            Evt.preventDefault();
+            let Data = Form.parse();
+            Youtube.channel.lookup(Data.forUsername);
+        });
+
+        Form.forUsername.on('keyup', debounce(() => {
+            var action = document.createEvent('Event');
+
+            // work around for .submit() function causing `submit`
+            // event listener to be ignore
+            action.initEvent('submit', false, true);
+            Form.dispatchEvent(action);
+        }, 700));
     })();
 
     document.live('click', '.grid-video-item a', function (Evt) {

@@ -35,7 +35,7 @@ const Routes   =
     },
     {
         method: 'GET',
-        path: /\/api\/youtube\/video\/comments\/([0-9a-z-A-Z]+)/,
+        path: /\/api\/youtube\/video\/comments\/([_0-9a-z-A-Z]+)/,
         handler: API.youtube.video.comments.bind(API.youtube.video)
     },
     {

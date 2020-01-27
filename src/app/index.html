@@ -1,5 +1,23 @@
 <main>
+
     <article>
+        <h2>Channel ID by Username</h2>
+        <form 
+        id="youtube-channel-lookup" 
+        action="/api/youtube/channel/lookup/" 
+        method="GET">
+            
+            <fieldset>
+                <input type="text" name="forUsername">
+            </fieldset>
+
+            <button type="submit"></button>
+
+        </form>
+    </article>    
+
+    <article>
+        <h2>Videos by Channel ID</h2>
         <form 
         id="youtube-channel-videos" 
         action="/api/youtube/channel/videos/" 
@@ -12,5 +30,9 @@
             <button type="submit"></button>
 
         </form>
+    </article>
+
+    <article>
+        
     </article>
 </main>
